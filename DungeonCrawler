@@ -1,4 +1,11 @@
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Random;
 
 
@@ -10,13 +17,33 @@ public class DungeonCrawler {
 
     /** Main method used as engine.
      * @param args - not used.
+     * @throws IOException 
+     * @throws UnknownHostException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException, IOException {
 
         // Setup:
         boolean gameRunning = true;
         int num = 0;
         int stage = 1;
+        String address = ""; 
+        
+      
+        		
+        
+        
+        System.out.println("enter server address:");
+        Scanner sc = new Scanner(System.in);
+        address = sc.nextLine();
+        Socket s = new  Socket(address,5000);
+        DataInputStream din=new DataInputStream(s.getInputStream());  
+        DataOutputStream dout=new DataOutputStream(s.getOutputStream());  
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));  
+
+        System.out.println("Send Get to start...");
+       
+        
+        
 
         // Introduce name of game:
         System.out.println("\n----------Welcome FATE STAY DUNGEON----------\n");
@@ -24,7 +51,7 @@ public class DungeonCrawler {
        
 
         // Ask for name of player:
-        Scanner sc = new Scanner(System.in);
+        
         System.out.println("Before you can start your journey of trials   what is your  name ?");
         String tempName = sc.nextLine().trim();
             /*Could add a confirmation for name.*/
@@ -280,10 +307,15 @@ public class DungeonCrawler {
                     gameRunning = false;
                     System.exit(0);
                 }
+            
             }
         }
     }
 }
+        
+    
+
+        
                 
             
         
